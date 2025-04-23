@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Menu, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, Sun, Moon, LogIn, MessageSquare } from "lucide-react"
+import { Menu, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, Sun, Moon, LogIn, MessageSquare, FileText } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -13,7 +13,6 @@ import { useTheme } from "next-themes"
 import { motion, AnimatePresence } from "framer-motion"
 
 export default function Home() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [activeTab, setActiveTab] = useState("tab1")
@@ -22,40 +21,31 @@ export default function Home() {
     setMounted(true)
   }, [])
 
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark")
-  }
-
   const tabContent = [
     {
       id: "tab1",
-      title: "Evaluación inicial del caso",
-      content:
-        "Realizamos una evaluación completa y detallada de su caso de accidente de patinete eléctrico. Analizamos las circunstancias, recopilamos evidencias, evaluamos lesiones y determinamos posibles responsabilidades para establecer una estrategia legal sólida.",
+      title: "Evaluación inicial",
+      content: "Analizamos su caso, evaluamos las circunstancias del accidente y establecemos un plan de acción personalizado.",
     },
     {
       id: "tab2",
-      title: "Investigación y documentación",
-      content:
-        "Nuestro equipo especializado inicia una investigación exhaustiva: recopilación de informes policiales, testimonios de testigos, historiales médicos y análisis de la normativa aplicable a patinetes eléctricos en su localidad para construir un caso robusto.",
+      title: "Investigación",
+      content: "Recopilamos toda la documentación necesaria: informes policiales, historiales médicos y pruebas del accidente.",
     },
     {
       id: "tab3",
-      title: "Negociación con aseguradoras",
-      content:
-        "Gestionamos todas las comunicaciones con las compañías de seguros involucradas. Presentamos un expediente completo con pruebas y argumentos legales para negociar una compensación justa que cubra gastos médicos, pérdida de ingresos y daños morales.",
+      title: "Negociación",
+      content: "Contactamos con las aseguradoras y presentamos su reclamación buscando la mejor compensación posible.",
     },
     {
       id: "tab4",
       title: "Proceso judicial",
-      content:
-        "Si la negociación no resulta satisfactoria, nuestros abogados especialistas en accidentes de movilidad personal prepararán una demanda judicial. Le representaremos en todas las fases del proceso, defendiendo sus derechos ante el tribunal con profesionalidad y experiencia.",
+      content: "Si es necesario, iniciamos acciones legales y le representamos ante los tribunales para defender sus derechos.",
     },
     {
       id: "tab5",
-      title: "Resolución y compensación",
-      content:
-        "Trabajamos incansablemente hasta conseguir la resolución más favorable para usted. Una vez alcanzado un acuerdo o sentencia favorable, nos aseguramos de que reciba la compensación completa a la que tiene derecho y gestionamos todos los trámites necesarios.",
+      title: "Compensación",
+      content: "Cerramos el proceso asegurando que reciba la indemnización que le corresponde por sus daños y perjuicios.",
     },
   ]
 
@@ -68,7 +58,7 @@ export default function Home() {
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon" className="h-10 w-10">
               <Menu className="h-6 w-6" />
-              <span className="sr-only">Abrir menú</span>
+              <span className="sr-only">Menú</span>
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="w-[250px] sm:w-[300px] dark:bg-slate-800 dark:text-white">
@@ -88,9 +78,6 @@ export default function Home() {
               <Link href="#contacto" className="text-lg font-medium hover:text-blue-700 dark:hover:text-blue-400">
                 Contacto
               </Link>
-              <Link href="#legal" className="text-lg font-medium hover:text-blue-700 dark:hover:text-blue-400">
-                Aviso Legal
-              </Link>
               <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
                 <Link 
                   href="/login" 
@@ -106,25 +93,51 @@ export default function Home() {
                   <MessageSquare className="mr-2 h-5 w-5" />
                   Chat con abogado
                 </Link>
+                <Link 
+                  href="/archivos" 
+                  className="flex items-center text-lg font-medium text-blue-700 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 mt-4"
+                >
+                  <FileText className="mr-2 h-5 w-5" />
+                  Archivos compartidos
+                </Link>
+                <Link 
+                  href="/perfil" 
+                  className="flex items-center text-lg font-medium text-blue-700 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 mt-4"
+                >
+                  <LogIn className="mr-2 h-5 w-5" />
+                  Mi perfil
+                </Link>
               </div>
             </nav>
           </SheetContent>
         </Sheet>
         <div className="text-xl font-bold text-blue-800 dark:text-blue-400">AsesoLegal Patinetes</div>
         <div className="flex items-center gap-2">
+          <Link href="/archivos">
+            <Button variant="outline" size="sm" className="hidden md:flex items-center gap-1 border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-900/30">
+              <FileText className="h-4 w-4" />
+              <span>Archivos</span>
+            </Button>
+          </Link>
           <Link href="/chat">
-            <Button variant="outline" size="sm" className="hidden sm:flex items-center gap-1 border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-900/30">
+            <Button variant="outline" size="sm" className="hidden md:flex items-center gap-1 border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-900/30">
               <MessageSquare className="h-4 w-4" />
-              <span>Chat con abogado</span>
+              <span>Chat</span>
             </Button>
           </Link>
           <Link href="/login">
-            <Button variant="outline" size="sm" className="hidden sm:flex items-center gap-1 border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-900/30">
+            <Button variant="outline" size="sm" className="hidden md:flex items-center gap-1 border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-900/30">
               <LogIn className="h-4 w-4" />
-              <span>Acceso Clientes</span>
+              <span>Acceso</span>
             </Button>
           </Link>
-          <Button variant="ghost" size="icon" onClick={toggleTheme} className="h-10 w-10" aria-label="Cambiar tema">
+          <Link href="/perfil">
+            <Button variant="outline" size="sm" className="hidden md:flex items-center gap-1 border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-900/30">
+              <LogIn className="h-4 w-4" />
+              <span>Perfil</span>
+            </Button>
+          </Link>
+          <Button variant="ghost" size="icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="h-10 w-10" aria-label="Cambiar tema">
             {mounted && (
               <>
                 {theme === "dark" ? (
@@ -145,12 +158,12 @@ export default function Home() {
         >
           <div className="mb-6 text-center">
             <h1 className="mb-2 text-3xl font-bold">Asesoramiento Legal para Accidentes de Patinetes</h1>
-            <p className="text-lg">Expertos en reclamaciones por accidentes con vehículos de movilidad personal</p>
+            <p className="text-lg">Le ayudamos a conseguir la indemnización que merece</p>
           </div>
           <div className="flex justify-center">
             <Image
               src="/banner.png"
-              alt="Asesoramiento legal para accidentes de patinetes"
+              alt="Asesoramiento para accidentes de patinetes"
               width={350}
               height={200}
               className="rounded-lg shadow-lg"
@@ -162,13 +175,12 @@ export default function Home() {
           <h2 className="mb-4 text-2xl font-bold text-slate-800 dark:text-white">Nuestros Servicios</h2>
           <div className="prose max-w-none text-slate-600 dark:text-slate-300">
             <p>
-              En AsesoLegal Patinetes nos especializamos en proporcionar asesoramiento jurídico integral para víctimas 
-              de accidentes con patinetes eléctricos y otros vehículos de movilidad personal.
+              En AsesoLegal nos especializamos en casos de accidentes con patinetes eléctricos. Sabemos que estos 
+              incidentes pueden ser complicados legalmente y que muchas víctimas no reciben la compensación que merecen.
             </p>
             <p className="mt-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-              Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              Nuestro equipo de abogados tiene amplia experiencia en este tipo de reclamaciones y conoce todas las 
+              particularidades legales relacionadas con la movilidad urbana actual.
             </p>
           </div>
         </section>
@@ -212,23 +224,23 @@ export default function Home() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
+                transition={{ duration: 0.3 }}
               >
-                <Card className="overflow-hidden border-0 shadow-md transition-shadow duration-300 hover:shadow-lg">
+                <Card className="overflow-hidden border-0 shadow-md">
                   <CardHeader className="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-750">
-                    <CardTitle className="text-xl text-slate-800 dark:text-white transition-colors duration-300">
+                    <CardTitle className="text-xl text-slate-800 dark:text-white">
                       {currentTabContent.title}
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="pt-6">
-                    <p className="text-slate-600 dark:text-slate-300 transition-colors duration-300 mb-6">
+                    <p className="text-slate-600 dark:text-slate-300 mb-6">
                       {currentTabContent.content}
                     </p>
                   </CardContent>
                   <CardFooter className="flex justify-between bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-750">
                     <Button
                       variant="outline"
-                      className="transition-all duration-300 hover:bg-slate-100 dark:hover:bg-slate-700"
+                      className="hover:bg-slate-100 dark:hover:bg-slate-700"
                       onClick={() => {
                         const tabs = tabContent.map((tab) => tab.id)
                         const currentIndex = tabs.indexOf(activeTab)
@@ -238,7 +250,7 @@ export default function Home() {
                       Anterior
                     </Button>
                     <Button 
-                      className="bg-blue-700 hover:bg-blue-800 transition-colors duration-300 dark:bg-blue-800 dark:hover:bg-blue-900"
+                      className="bg-blue-700 hover:bg-blue-800 dark:bg-blue-800 dark:hover:bg-blue-900"
                       onClick={() => {
                         const tabs = tabContent.map((tab) => tab.id)
                         const currentIndex = tabs.indexOf(activeTab)
@@ -255,59 +267,44 @@ export default function Home() {
         </section>
 
         <section id="casos" className="mb-12">
-          <h2 className="mb-6 text-2xl font-bold text-slate-800 dark:text-white">Noticias</h2>
-          <div className="grid gap-6">
-            {[1, 2, 3].map((item) => (
-              <div key={item} className="overflow-hidden rounded-xl bg-white shadow-md dark:bg-slate-800">
-                <div className="relative h-48 w-full">
-                  <Image
-                    src={`/placeholder.svg?height=192&width=384&text=Caso ${item}`}
-                    alt={`Caso de éxito ${item}`}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="mb-2 text-xl font-bold text-slate-800 dark:text-white">
-                    Accidente de patinete en vía urbana
-                  </h3>
-                    <p className="text-slate-600 dark:text-slate-300">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore 
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
-                    aliquip ex ea commodo consequat.
-                    </p>
-                  <Button variant="link" className="mt-2 p-0 text-blue-700 dark:text-blue-400">
-                    Leer más
-                  </Button>
-                </div>
+          <h2 className="mb-6 text-2xl font-bold text-slate-800 dark:text-white">Casos de Éxito</h2>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="overflow-hidden rounded-xl bg-white shadow-md dark:bg-slate-800">
+              <div className="relative h-48 w-full">
+                <Image
+                  src="/placeholder.svg"
+                  alt="Caso de éxito"
+                  fill
+                  className="object-cover"
+                />
               </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="mb-12 rounded-xl bg-white p-6 shadow-md dark:bg-slate-800">
-          <h2 className="mb-4 text-2xl font-bold text-slate-800 dark:text-white">Actualidad Legal</h2>
-          <div className="divide-y divide-slate-200 dark:divide-slate-700">
-            {[1, 2, 3, 4, 5].map((item) => (
-              <div key={item} className="py-4">
-                <div className="flex items-start">
-                  <div className="mr-4 h-12 w-12 flex-shrink-0 rounded-full bg-blue-100 flex items-center justify-center dark:bg-blue-900">
-                    <span className="text-sm font-medium text-blue-700 dark:text-blue-300">{item}</span>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-medium text-slate-800 dark:text-white">
-                      Nueva normativa sobre patinetes eléctricos
-                    </h3>
-                    <p className="text-sm text-slate-600 dark:text-slate-300">
-                      Se implementan nuevas regulaciones que afectan a la circulación y seguro obligatorio de vehículos de movilidad personal.
-                    </p>
-                    <span className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                      Hace {item} semana{item !== 1 ? "s" : ""}
-                    </span>
-                  </div>
-                </div>
+              <div className="p-4">
+                <h3 className="mb-2 text-xl font-bold text-slate-800 dark:text-white">
+                  Accidente en carril bici
+                </h3>
+                <p className="text-slate-600 dark:text-slate-300">
+                  Indemnización de 42.000€ para nuestro cliente tras un accidente en carril bici causado por un vehículo mal estacionado.
+                </p>
               </div>
-            ))}
+            </div>
+            <div className="overflow-hidden rounded-xl bg-white shadow-md dark:bg-slate-800">
+              <div className="relative h-48 w-full">
+                <Image
+                  src="/placeholder.svg"
+                  alt="Caso de éxito"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-4">
+                <h3 className="mb-2 text-xl font-bold text-slate-800 dark:text-white">
+                  Fallo técnico del patinete
+                </h3>
+                <p className="text-slate-600 dark:text-slate-300">
+                  Obtuvimos 38.500€ para un cliente lesionado por un defecto en el sistema de frenado de su patinete eléctrico de alquiler.
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -330,27 +327,12 @@ export default function Home() {
               <label htmlFor="mensaje" className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">
                 Describa su caso
               </label>
-              <Textarea id="mensaje" placeholder="Describa brevemente los detalles de su accidente..." className="min-h-[120px] w-full" />
+              <Textarea id="mensaje" placeholder="Cuéntenos brevemente qué ocurrió..." className="min-h-[120px] w-full" />
             </div>
             <Button className="w-full bg-blue-700 hover:bg-blue-800 dark:bg-blue-800 dark:hover:bg-blue-900">
               Solicitar asesoramiento gratuito
             </Button>
           </form>
-        </section>
-
-        <section id="legal" className="mb-12 rounded-xl bg-white p-6 shadow-md dark:bg-slate-800">
-          <h2 className="mb-4 text-2xl font-bold text-slate-800 dark:text-white">Información Legal</h2>
-          <div className="flex flex-col space-y-2">
-            <Link href="#" className="text-blue-700 hover:underline dark:text-blue-400">
-              Política de Privacidad
-            </Link>
-            <Link href="#" className="text-blue-700 hover:underline dark:text-blue-400">
-              Política de Cookies
-            </Link>
-            <Link href="#" className="text-blue-700 hover:underline dark:text-blue-400">
-              Términos y Condiciones
-            </Link>
-          </div>
         </section>
       </main>
 
@@ -359,7 +341,7 @@ export default function Home() {
           <div className="mb-6 grid gap-6 md:grid-cols-2">
             <div>
               <h3 className="mb-4 text-xl font-bold">AsesoLegal Patinetes</h3>
-              <p className="text-slate-300">Expertos en reclamaciones por accidentes con vehículos de movilidad personal. Primera consulta gratuita.</p>
+              <p className="text-slate-300">Especialistas en reclamaciones por accidentes con patinetes eléctricos y vehículos de movilidad personal.</p>
             </div>
             <div>
               <h3 className="mb-4 text-xl font-bold">Contacto</h3>
@@ -370,7 +352,7 @@ export default function Home() {
                 </div>
                 <div className="flex items-center">
                   <Phone className="mr-2 h-5 w-5" />
-                  <span>+34 900 123 456</span>
+                  <span>900 123 456</span>
                 </div>
                 <div className="flex items-center">
                   <MapPin className="mr-2 h-5 w-5" />
@@ -398,7 +380,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="mt-6 text-center text-sm text-slate-400">
-            © {new Date().getFullYear()} AsesoLegal Patinetes. Todos los derechos reservados.
+            © {new Date().getFullYear()} AsesoLegal Patinetes
           </div>
         </div>
       </footer>

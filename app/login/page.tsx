@@ -121,25 +121,6 @@ export default function LoginPage() {
               </Button>
             </form>
 
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <Separator className="w-full" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-white px-2 text-slate-500 dark:bg-slate-800 dark:text-slate-400">
-                  O continúe con
-                </span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <Button variant="outline" className="w-full text-sm">
-                Google
-              </Button>
-              <Button variant="outline" className="w-full text-sm">
-                Microsoft
-              </Button>
-            </div>
           </CardContent>
           <CardFooter className="flex flex-col text-center bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-750 rounded-b-lg">
             <p className="text-sm text-slate-600 dark:text-slate-400">
